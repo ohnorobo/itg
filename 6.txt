@@ -1,0 +1,295 @@
+
+==========
+
+alignments:
+    wo - wu
+    !  - !
+
+expression:
+
+        A
+       -1
+       / \
+      /   \
+   -15.4 -7.82
+   wo/wu  !/!
+
+    -24.22 = -1 + 15.4 + .7.82
+
+==========
+
+alignments:
+    wo - !
+    !  - wu
+
+expression:
+
+        A
+       -1
+       /-\
+      /   \
+   -x.xx  -x.xx
+   wo/!   !/wu
+
+    -x.xx   
+
+==========
+
+alignments:
+    wo - wu
+    !  - ϵ
+    ϵ  - !
+
+expressions:
+
+        A
+       -1
+       /-\
+      /   \
+   -x.xx  -x.xx
+   wo/wu   / \
+          /   \
+       -x.xx -x.xx
+        !/ϵ    ϵ/!
+
+    -x.xx
+
+        A
+       -1
+       /-\
+      /   \
+   -x.xx  -x.xx
+   wo/wu   /-\
+          /   \
+       -x.xx -x.xx
+        !/ϵ    ϵ/!
+
+    -x.xx
+
+
+==========
+
+alignments:
+    wo - ϵ
+    ϵ  - wu
+    !  - !
+
+expressions:
+
+        A
+       -1
+       /-\
+      /   \
+  -x.xx  -x.xx
+    / \   !/!
+   /   \
+-x.xx -x.xx
+ ϵ/wu  wo/ϵ
+
+    -x.xx
+
+
+        A
+       -1
+       /-\
+      /   \
+  -x.xx  -x.xx
+    /-\   !/!
+   /   \
+-x.xx -x.xx
+ ϵ/wu  wo/ϵ
+
+    -x.xx
+	
+
+==========
+
+alignments:
+    wo - !
+    !  - ϵ
+    ϵ  - wu
+
+expressions:
+
+        A
+       -1
+       /-\
+      /   \
+  -x.xx  -x.xx
+   wo/!   / \ 
+         /   \
+       -x.xx -x.xx
+       !/ϵ   ϵ/wu
+
+    -x.xx
+
+
+        A
+       -1
+       /-\
+      /   \
+  -x.xx  -x.xx
+   wo/!   /_\ 
+         /   \
+       -x.xx -x.xx
+       !/ϵ   ϵ/wu
+
+    -x.xx
+
+
+==========
+
+alignments:
+    wo - ϵ
+    ϵ  - !
+    !  - wu
+
+expressions:
+
+        A
+       -1
+       /-\
+      /   \
+  -x.xx  -x.xx
+    / \   !/wu
+   /   \
+-x.xx -x.xx
+ wo/ϵ  ϵ/!
+
+    -x.xx
+
+
+        A
+       -1
+       /-\
+      /   \
+  -x.xx  -x.xx
+    /-\   !/!
+   /   \
+-x.xx -x.xx
+ wo/ϵ  ϵ/!
+
+    -x.xx
+	
+	
+==========
+
+alignments:
+    wo - ϵ
+    ϵ  - wu
+    !  - ϵ
+    ϵ  - !
+
+expressions:
+
+           A
+          -1
+          / \
+         /   \
+        /     \
+       /       \
+      /         \
+   -x.xx      -x.xx
+    / \         / \
+   /   \       /   \
+-x.xx -x.xx  -x.xx -x.xx
+ wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+
+
+           A
+          -1
+          / \
+         /   \
+        /     \
+       /       \
+      /         \
+   -x.xx      -x.xx
+    /-\         / \
+   /   \       /   \
+-x.xx -x.xx  -x.xx -x.xx
+ wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+
+
+           A
+          -1
+          / \
+         /   \
+        /     \
+       /       \
+      /         \
+   -x.xx      -x.xx
+    / \         /-\
+   /   \       /   \
+-x.xx -x.xx  -x.xx -x.xx
+ wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+
+
+           A
+          -1
+          / \
+         /   \
+        /     \
+       /       \
+      /         \
+   -x.xx      -x.xx
+    /-\         /-\
+   /   \       /   \
+-x.xx -x.xx  -x.xx -x.xx
+ wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+
+
+           A
+          -1
+          /-\
+         /   \
+        /     \
+       /       \
+      /         \
+   -x.xx      -x.xx
+    / \         / \
+   /   \       /   \
+-x.xx -x.xx  -x.xx -x.xx
+ wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+
+
+           A
+          -1
+          /-\
+         /   \
+        /     \
+       /       \
+      /         \
+   -x.xx      -x.xx
+    /-\         / \
+   /   \       /   \
+-x.xx -x.xx  -x.xx -x.xx
+ wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+
+
+           A
+          -1
+          /-\
+         /   \
+        /     \
+       /       \
+      /         \
+   -x.xx      -x.xx
+    / \         /-\
+   /   \       /   \
+-x.xx -x.xx  -x.xx -x.xx
+ wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+
+
+           A
+          -1
+          /-\
+         /   \
+        /     \
+       /       \
+      /         \
+   -x.xx      -x.xx
+    /-\         /-\
+   /   \       /   \
+-x.xx -x.xx  -x.xx -x.xx
+ wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+
