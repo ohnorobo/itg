@@ -21,6 +21,20 @@ WW = -100 # A -> word.en / word.de
 #sys.setrecursionlimit(20)
 
 
+#############Memoization
+#http://stackoverflow.com/questions/1988804/what-is-memoization-and-how-can-i-use-it-in-python
+
+class Memoize:
+    def __init__(self, f):
+        self.f = f
+        self.memo = {}
+    def __call__(self, *args):
+        targs = args[1], args[2], args[4], args[5]
+        #print targs
+        if not targs in self.memo:
+            self.memo[targs] = self.f(*args)
+        return self.memo[targs]
+
 
 #############Representation of Parse Trees
 
@@ -103,6 +117,7 @@ def align(english, german):
     alignment = parse.get_alignments()
     print " "
     print_alignment(alignment)
+    prob_align.memo = {} #reset memoization
     print "==="
 
 def print_alignment(alignment):
@@ -191,6 +206,8 @@ def prob_align(en, i, k, de, u, w, depth):
 
         return max(parses, key=lambda x: x.prob)
 
+
+prob_align = Memoize(prob_align)
 
 
 def word_alignment_prob(word_en, word_de):

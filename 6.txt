@@ -1,7 +1,38 @@
 
+An alignment is given, 
+	then the total log probability for that alignment
+	followed by all the trees which produce that alignment
+		each followed by the log probability for that specific tree
+
+
+
+Trees are given with the log probability at each node/leaf
+
+ A
+/ \ means a regular aignment
+
+ A
+/-\ means an inverted alignment
+
+wo means wonderful
+wu means wunderbar
+
+
+Q. Are there some derivations that result in identical word alignments? Which alignments?
+A. All if the alignments have multiple derivations *except for*:
+		wo-wu 
+		!-!
+	and
+		wo-!
+		!-wu
+
+	
+
+
+
 ==========
 
-alignments:
+alignment:
     wo - wu
     !  - !
 
@@ -14,28 +45,28 @@ expression:
    -15.4 -7.82
    wo/wu  !/!
 
-    -24.22 = -1 + 15.4 + .7.82
+    prob: 24.22 = -1 + 15.4 + .7.82
 
 ==========
 
-alignments:
+alignment:
     wo - !
     !  - wu
 
 expression:
 
         A
-       -1
+       -2
        /-\
       /   \
    -x.xx  -x.xx
    wo/!   !/wu
 
-    -x.xx   
+    prob: -x.xx   
 
 ==========
 
-alignments:
+alignment:
     wo - wu
     !  - ϵ
     ϵ  - !
@@ -44,32 +75,34 @@ expressions:
 
         A
        -1
-       /-\
+       / \
       /   \
-   -x.xx  -x.xx
+	 A     A
+   -15.4   -1   
    wo/wu   / \
           /   \
-       -x.xx -x.xx
+        -20   -21 
         !/ϵ    ϵ/!
 
-    -x.xx
-
+    prob: -56.4 = -15.4 + -20 + -21
+	
         A
        -1
-       /-\
+       / \
       /   \
-   -x.xx  -x.xx
+	 A     A
+   -15.4   -2   
    wo/wu   /-\
           /   \
-       -x.xx -x.xx
-        !/ϵ    ϵ/!
+        -21   -20
+        ϵ/!   !/ϵ
 
-    -x.xx
+    prob: -56.4 = -15.4 + -21 + -20
 
 
 ==========
 
-alignments:
+alignment:
     wo - ϵ
     ϵ  - wu
     !  - !
@@ -78,33 +111,35 @@ expressions:
 
         A
        -1
-       /-\
+       / \
       /   \
-  -x.xx  -x.xx
+	 A     A
+    -1   -7.82
     / \   !/!
    /   \
--x.xx -x.xx
- ϵ/wu  wo/ϵ
+ -20   -21 
+ wo/ϵ  ϵ/wu
 
-    -x.xx
+    prob: -48.82 = -20 + -21 + -7.82
 
 
         A
        -1
-       /-\
+       / \
       /   \
-  -x.xx  -x.xx
+	 A     A
+    -2   -7.82
     /-\   !/!
    /   \
--x.xx -x.xx
+ -21   -20
  ϵ/wu  wo/ϵ
 
-    -x.xx
+    prob: -48.82 = -21 + -20 + -7.82
 	
 
 ==========
 
-alignments:
+alignment:
     wo - !
     !  - ϵ
     ϵ  - wu
@@ -115,31 +150,33 @@ expressions:
        -1
        /-\
       /   \
-  -x.xx  -x.xx
+	 A     A
+  -x.xx   -1
    wo/!   / \ 
          /   \
-       -x.xx -x.xx
+       -20   -21 
        !/ϵ   ϵ/wu
 
-    -x.xx
+    prob: -x.xx
 
 
         A
        -1
        /-\
       /   \
-  -x.xx  -x.xx
+	 A     A
+  -x.xx   -2  
    wo/!   /_\ 
          /   \
-       -x.xx -x.xx
-       !/ϵ   ϵ/wu
+       -21   -20
+       ϵ/wu   !/ϵ
 
-    -x.xx
+    prob: -x.xx
 
 
 ==========
 
-alignments:
+alignment:
     wo - ϵ
     ϵ  - !
     !  - wu
@@ -150,31 +187,33 @@ expressions:
        -1
        /-\
       /   \
-  -x.xx  -x.xx
+	 A     A
+    -1   -x.xx
     / \   !/wu
    /   \
--x.xx -x.xx
+ -20   -21 
  wo/ϵ  ϵ/!
 
-    -x.xx
+    prob: -x.xx
 
 
         A
        -1
        /-\
       /   \
-  -x.xx  -x.xx
-    /-\   !/!
+	 A     A
+    -2   -x.xx
+    /-\   !/wu
    /   \
--x.xx -x.xx
- wo/ϵ  ϵ/!
+ -21   -20
+ ϵ/!   wo/ϵ
 
-    -x.xx
+    prob: -x.xx
 	
 	
 ==========
 
-alignments:
+alignment:
     wo - ϵ
     ϵ  - wu
     !  - ϵ
@@ -189,12 +228,14 @@ expressions:
         /     \
        /       \
       /         \
-   -x.xx      -x.xx
+	 A           A
+    -1          -1
     / \         / \
    /   \       /   \
--x.xx -x.xx  -x.xx -x.xx
+ -20   -21   -20   -21 
  wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
 
+    prob: -85 = -1 + -1 + -1 + -21 + -20 + -21 + -20
 
            A
           -1
@@ -203,12 +244,14 @@ expressions:
         /     \
        /       \
       /         \
-   -x.xx      -x.xx
+	 A           A
+    -2          -1  
     /-\         / \
    /   \       /   \
--x.xx -x.xx  -x.xx -x.xx
- wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+ -21   -20    -20   -21 
+ ϵ/wu  wo/ϵ   !/ϵ   ϵ/!
 
+    prob: -86 = -1 + -2 + -1 + -21 + -20 + -21 + -20
 
            A
           -1
@@ -217,12 +260,14 @@ expressions:
         /     \
        /       \
       /         \
-   -x.xx      -x.xx
+	 A           A
+    -1          -2  
     / \         /-\
    /   \       /   \
--x.xx -x.xx  -x.xx -x.xx
- wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+ -20   -21   -21   -20
+ wo/ϵ  ϵ/wu   ϵ/!   !/ϵ
 
+    prob: -86 = -1 + -1 + -2 + -21 + -20 + -21 + -20
 
            A
           -1
@@ -231,65 +276,75 @@ expressions:
         /     \
        /       \
       /         \
-   -x.xx      -x.xx
+	 A           A
+    -2          -2  
     /-\         /-\
    /   \       /   \
--x.xx -x.xx  -x.xx -x.xx
- wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+ -21   -20   -21   -20
+ ϵ/wu  wo/ϵ   ϵ/!   !/ϵ
 
+    prob: -87 = -1 + -2 + -2 + -21 + -20 + -21 + -20
 
            A
-          -1
+          -2  
           /-\
          /   \
         /     \
        /       \
       /         \
-   -x.xx      -x.xx
+	 A           A
+    -1          -1  
     / \         / \
    /   \       /   \
--x.xx -x.xx  -x.xx -x.xx
- wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+ -20  -21    -20   -21 
+ wo/ϵ  ϵ/!   !/ϵ   ϵ/wu
 
-
+    prob: -86 = -2 + -1 + -1 + -21 + -20 + -21 + -20
+	
            A
-          -1
+          -2  
           /-\
          /   \
         /     \
        /       \
       /         \
-   -x.xx      -x.xx
+	 A           A
+    -2          -1  
     /-\         / \
    /   \       /   \
--x.xx -x.xx  -x.xx -x.xx
- wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+ -21   -20    -20   -21 
+ ϵ/!   wo/ϵ   !/ϵ   ϵ/wu
 
-
+    prob: -87 = -2 + -2 + -1 + -21 + -20 + -21 + -20
+	
            A
-          -1
+          -2  
           /-\
          /   \
         /     \
        /       \
       /         \
-   -x.xx      -x.xx
+	 A           A
+    -1          -2  
     / \         /-\
    /   \       /   \
--x.xx -x.xx  -x.xx -x.xx
- wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+ -20   -21    -21   -20
+ wo/ϵ  ϵ/!   ϵ/wu   !/ϵ
 
-
+    prob: -87 = -2 + -1 + -2 + -21 + -20 + -21 + -20
+	
            A
-          -1
+          -2  
           /-\
          /   \
         /     \
        /       \
       /         \
-   -x.xx      -x.xx
+	 A           A
+    -2          -2  
     /-\         /-\
    /   \       /   \
--x.xx -x.xx  -x.xx -x.xx
- wo/ϵ  ϵ/wu   !/ϵ   ϵ/!
+ -21   -20    -21   -20
+ ϵ/!   wo/ϵ   ϵ/wu   !/ϵ
 
+    prob: -88 = -2 + -2 + -2 + -21 + -20 + -21 + -20
