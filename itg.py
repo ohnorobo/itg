@@ -14,7 +14,7 @@ BA = -2   # A -> ⟨AA⟩
 WE = -20  # A -> word.en / ϵ
 EW = -21  # A -> ϵ / word.de
 
-WW = -100 # A -> word.en / word.de
+WW = -1000 # A -> word.en / word.de
           # if there is no entry for the pair in PROBS_FILE
 
 #import sys
@@ -113,12 +113,12 @@ def align(english, german):
     parse = prob_align(en, 0, len(en), de, 0, len(de), 0)
 
     print parse
-    print parse.prob
+    #print parse.prob
     alignment = parse.get_alignments()
-    print " "
+    #print " "
     print_alignment(alignment)
     prob_align.memo = {} #reset memoization
-    print "==="
+    #print "==="
 
 def print_alignment(alignment):
     for pair in alignment:

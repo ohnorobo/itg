@@ -78,12 +78,44 @@ write down an expression for the probability of the following word alignment:
 
     itg.py
     runable on the lab machines with ./itg.py
+	
+	itg.dict, test.en, and test.de must be in the same directory
 
 8.
 [5 points] In the alignments produced by your program, what percentage of the German words were aligned to ϵ? What percentage of the English words were aligned to ϵ?
 
+	calculation:
+		884 lines (alignments) in just_alignments.txt
+		142 lines with english aligned to ϵ
+		128 lines with ϵ aligned to german
+		
+		english-ϵ : 16%
+		ϵ-german  : 14%
+
 9.
 [5 points] What percentage of the time was the “swap” rule A→⟨A A⟩ used, compared to the “in-order” rule?
 
+	calculation
+		grep -o '\[' just_parses.txt | wc -w
+		minus number of alignments to ϵ 
+			(this displays as a list with a [ character)
+		588
+
+		grep -o '⟨' just_parses.txt | wc -w
+		70
+	
+
+		swap percentage : 10.6% = 70/(70+588)
+
 10.
 [5 points] Disable the swap rule in your program. Now, alignments will be ``monotonic'', to use the MT jargon. What percentage of German and English words are aligned to ϵ?
+
+	calculation:
+		961 lines (alignments) in just_alignments_monotonic.txt
+		219 lines with english aligned to ϵ
+		205 lines with ϵ aligned to german
+		
+		english-ϵ : 22.7%
+		ϵ-german  : 21.3%
+		
+		

@@ -1,6 +1,6 @@
 
 An alignment is given, 
-	then the total log probability for that alignment
+	then the total probability for that alignment
 	followed by all the trees which produce that alignment
 		each followed by the log probability for that specific tree
 
@@ -21,20 +21,31 @@ wu means wunderbar
 Q. Are there some derivations that result in identical word alignments? Which alignments?
 A. All if the alignments have multiple derivations *except for*:
 		wo-wu 
-		!-!
-	and
-		wo-!
-		!-wu
-
-	
+		! -!
+Mostly since two epsilon alignments can be flipped without changing the final alignment
 
 
 
+Expression for probability for all possible alignments:
+Sum of all totals for each of the four possible alignments
+
+	e^-24.22
+	e^-56.4 + e^-56.4
+	e^-48.82 + e^-48.82
+ +	e^-85 + e^-86 + e^-86 + e^-86 + e^-87 + e^-87 + e^-87 + e^-88
+	-------------------------------------------------------------
+	3.0296164e-11
+
+
+
+=================================================================
 ==========
 
 alignment:
     wo - wu
     !  - !
+	
+	total prob = e^-24.22
 
 expression:
 
@@ -50,26 +61,11 @@ expression:
 ==========
 
 alignment:
-    wo - !
-    !  - wu
-
-expression:
-
-        A
-       -2
-       /-\
-      /   \
-   -x.xx  -x.xx
-   wo/!   !/wu
-
-    prob: -x.xx   
-
-==========
-
-alignment:
     wo - wu
     !  - ϵ
     ϵ  - !
+	
+	total prob = e^-56.4 + e^-56.4
 
 expressions:
 
@@ -106,6 +102,8 @@ alignment:
     wo - ϵ
     ϵ  - wu
     !  - !
+	
+	total prob = e^-48.82 + e^-48.82
 
 expressions:
 
@@ -140,84 +138,12 @@ expressions:
 ==========
 
 alignment:
-    wo - !
-    !  - ϵ
-    ϵ  - wu
-
-expressions:
-
-        A
-       -1
-       /-\
-      /   \
-	 A     A
-  -x.xx   -1
-   wo/!   / \ 
-         /   \
-       -20   -21 
-       !/ϵ   ϵ/wu
-
-    prob: -x.xx
-
-
-        A
-       -1
-       /-\
-      /   \
-	 A     A
-  -x.xx   -2  
-   wo/!   /_\ 
-         /   \
-       -21   -20
-       ϵ/wu   !/ϵ
-
-    prob: -x.xx
-
-
-==========
-
-alignment:
-    wo - ϵ
-    ϵ  - !
-    !  - wu
-
-expressions:
-
-        A
-       -1
-       /-\
-      /   \
-	 A     A
-    -1   -x.xx
-    / \   !/wu
-   /   \
- -20   -21 
- wo/ϵ  ϵ/!
-
-    prob: -x.xx
-
-
-        A
-       -1
-       /-\
-      /   \
-	 A     A
-    -2   -x.xx
-    /-\   !/wu
-   /   \
- -21   -20
- ϵ/!   wo/ϵ
-
-    prob: -x.xx
-	
-	
-==========
-
-alignment:
     wo - ϵ
     ϵ  - wu
     !  - ϵ
     ϵ  - !
+	
+	total prob = e^-85 + e^-86 + e^-86 + e^-86 + e^-87 + e^-87 + e^-87 + e^-88
 
 expressions:
 
