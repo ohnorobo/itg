@@ -3,23 +3,19 @@
 
 from pprint import pprint
 
-ENGLISH_FILE = "test.en"
-GERMAN_FILE = "test.de"
-PROBS_FILE = "itg.dict"
+INPUT_FILE = "sentences.in"
+OUTPUT_FILE = "sentences.out"
+PROBS_FILE = "probs.dict"
 probs = {}
 
 #log probabilities
 AB = -1   # A -> [AA]
 BA = -2   # A -> ⟨AA⟩
-WE = -20  # A -> word.en / ϵ
-EW = -21  # A -> ϵ / word.de
+WE = -20  # A -> word.in / ϵ
+EW = -21  # A -> ϵ / word.out
 
-WW = -1000 # A -> word.en / word.de
+WW = -1000 # A -> word.in / word.out
           # if there is no entry for the pair in PROBS_FILE
-
-#import sys
-#sys.setrecursionlimit(20)
-
 
 #############Memoization
 #http://stackoverflow.com/questions/1988804/what-is-memoization-and-how-can-i-use-it-in-python
@@ -71,22 +67,22 @@ class Node(Parse):
 
 class Leaf(Parse):
 
-    def __init__(self, en, de, prob):
+    def __init__(self, w_in, w_out, prob):
         """
         Args:
-            en - string, english word
-            de - string, german word
+            w_in - string, input word
+            w_out - string, output word
             prob - float
         """
-        self.en = en
-        self.de = de
+        self.w_in = w_in
+        self.w_out = w_out
         self.prob = prob
 
     def __str__(self):
-        return str(self.en) + '/' + str(self.de)
+        return str(self.w_in) + '/' + str(self.w_out)
 
     def get_alignments(self):
-        return [(self.en, self.de)]
+        return [(self.w_in, self.w_out)]
 
     __repr__ = __str__
 
@@ -99,18 +95,18 @@ def read_probs(filename):
     p = file(filename, 'r')
 
     for line in p:
-        english, german, prob = line.split()
-        #print english, german, float(prob)
-        probs[(english, german)] = float(prob)
+        w_in, w_out, prob = line.split()
+        #print w_in, w_out, float(prob)
+        probs[(w_in, w_out)] = float(prob)
 
 
-def align(english, german):
-    print english, german
+def align(st_in, st_out):
+    print st_in, st_out
 
-    en = english.split()
-    de = german.split()
+    s_in = st_in.split()
+    s_out = st_out.split()
 
-    parse = prob_align(en, 0, len(en), de, 0, len(de), 0)
+    parse = prob_align(s_in, 0, len(s_in), s_out, 0, len(s_out), 0)
 
     print parse
     #print parse.prob
@@ -136,41 +132,41 @@ def print_alignment(alignment):
 
 
 
-def prob_align(en, i, k, de, u, w, depth):
+def prob_align(s_in, i, k, s_out, u, w, depth):
     """
     Args:
-        en - list of strings, english sentence
-        de - list of strings, german sentence
-        i, k - ints, english start and end index
-        u, w - ints, german start and end index
+        s_in - list of strings, input sentence
+        s_out - list of strings, output sentence
+        i, k - ints, input start and end index
+        u, w - ints, output start and end index
 
     Return:
         returns a Parse, wth the most probable alignment for these indicies
     """
 
-    #print "aligning", en[i:k], " : ", de[u:w]
+    #print "aligning", s_in[i:k], " : ", s_out[u:w]
     #print " "*depth, "a", i, k, ":", u, w
 
 
     ##Base Cases
     #word / ϵ
     if i == k: # is w-u == 1 ?
-        word_de = de[u:w]
-        #print 'ϵ', word_de
-        return Leaf('ϵ', word_de, EW*len(word_de))
+        word_out = s_out[u:w]
+        #print 'ϵ', word_out
+        return Leaf('ϵ', word_out, EW*len(word_out))
 
     #ϵ / word
     if u == w: # is k-1 == 1 ?
-        word_en = en[i:k]
-        #print word_en, 'ϵ'
-        return Leaf(word_en, 'ϵ', WE*len(word_en))
+        word_in = s_in[i:k]
+        #print word_in, 'ϵ'
+        return Leaf(word_in, 'ϵ', WE*len(word_in))
 
     #word / word
     if k-i == 1 and w-u == 1:
-        word_en = en[i:k][0]
-        word_de = de[u:w][0]
-        #print word_en, word_de
-        return Leaf(word_en, word_de, word_alignment_prob(word_en, word_de))
+        word_in = s_in[i:k][0]
+        word_out = s_out[u:w][0]
+        #print word_in, word_out
+        return Leaf(word_in, word_out, word_alignment_prob(word_in, word_out))
 
     ##Recursive Case
     else:
@@ -185,8 +181,8 @@ def prob_align(en, i, k, de, u, w, depth):
                 else:
 
                     #aligned
-                    left = prob_align(en, i, j, de, u, v, depth+1)
-                    right = prob_align(en, j, k, de, v, w, depth+1)
+                    left = prob_align(s_in, i, j, s_out, u, v, depth+1)
+                    right = prob_align(s_in, j, k, s_out, v, w, depth+1)
                     parse = Node(left,
                                  right,
                                  left.prob+right.prob+AB,
@@ -194,8 +190,8 @@ def prob_align(en, i, k, de, u, w, depth):
                     parses.append(parse)
 
                     #inverted
-                    left_inv = prob_align(en, i, j, de, v, w, depth+1)
-                    right_inv = prob_align(en, j, k, de, u, v, depth+1)
+                    left_inv = prob_align(s_in, i, j, s_out, v, w, depth+1)
+                    right_inv = prob_align(s_in, j, k, s_out, u, v, depth+1)
                     parse_inv = Node(left_inv,
                                      right_inv,
                                      left_inv.prob+right_inv.prob+BA,
@@ -210,10 +206,10 @@ def prob_align(en, i, k, de, u, w, depth):
 prob_align = Memoize(prob_align)
 
 
-def word_alignment_prob(word_en, word_de):
+def word_alignment_prob(word_in, word_out):
     global probs
 
-    pair = (word_en, word_de)
+    pair = (word_in, word_out)
     if pair in probs:
         return probs[pair]
     else:
@@ -228,9 +224,9 @@ def word_alignment_prob(word_en, word_de):
 
 if __name__ == "__main__": #i.e. run directly
     read_probs(PROBS_FILE)
-    en = file(ENGLISH_FILE, 'r')
-    de = file(GERMAN_FILE, 'r')
+    all_in = file(INPUT_FILE, 'r')
+    all_out = file(OUTPUT_FILE, 'r')
 
-    for en_sentence, de_sentence in zip(en, de):
-        align(en_sentence, de_sentence)
+    for in_sentence, out_sentence in zip(all_in, all_out):
+        align(in_sentence, out_sentence)
 
