@@ -1,0 +1,16 @@
+
+itg.py is an inversion transduction grammar as descriped here:
+http://acl.ldc.upenn.edu/J/J97/J97-3002.pdf
+
+Requires 3 files:
+probs
+    alignment probabilities for input language words to output language words
+    need not be complete
+    format: inputword putputword prob
+
+sentences.in
+sentences.out
+    translated sentences in the input and output languages
+    must be aligned line for line
+
+running ./itg.py will output the most probable alignments for the words in the given sentences.
